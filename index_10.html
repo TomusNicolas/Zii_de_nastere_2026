@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrada • 20 de ani</title>
+<meta name="description" content="Invitație la brunch-ul de 20 de ani al Andradei — 28 Noiembrie, Sânnicolau Mare.">
+
+<!-- Preview pentru WhatsApp / Instagram / Facebook etc. —
+     TODO (Andrada): după ce publici pe GitHub Pages, înlocuiește
+     TODO-USERNAME și TODO-REPO mai jos (în toate cele 3 linii) cu
+     link-ul tău real, ceva de genul:
+     https://andrada.github.io/ziua-mea/  →  TODO-USERNAME=andrada, TODO-REPO=ziua-mea
+     Dacă repo-ul se numește chiar <username>.github.io, linkul e doar
+     https://<username>.github.io/ și atunci scoți "/TODO-REPO" din URL-uri. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Andrada — Brunch de 20 de ani">
+<meta property="og:description" content="28 Noiembrie, Sânnicolau Mare. Vino să sărbătorim!">
+<meta property="og:image" content="https://TODO-USERNAME.github.io/TODO-REPO/og-image.png">
+<meta property="og:url" content="https://TODO-USERNAME.github.io/TODO-REPO/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Andrada — Brunch de 20 de ani">
+<meta name="twitter:description" content="28 Noiembrie, Sânnicolau Mare.">
+<meta name="twitter:image" content="https://TODO-USERNAME.github.io/TODO-REPO/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%235c0f1f'/%3E%3Ctext x='50' y='66' font-size='54' text-anchor='middle' fill='%23f3ead9' font-family='serif'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Italiana&family=Cormorant+Garamond:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --burgundy: #5c0f1f;
+    --burgundy-2: #4a0c19;
+    --burgundy-deep: #3a0912;
+    --cream: #f3ead9;
+    --cream-dim: #d9c4ac;
+    --green: #566b52;
+    --line: rgba(243, 234, 217, 0.82);
+    --line-soft: rgba(243, 234, 217, 0.4);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 0%, rgba(255,235,220,0.06), transparent 55%),
+      radial-gradient(ellipse 100% 50% at 20% 100%, rgba(0,0,0,0.25), transparent 60%),
+      linear-gradient(180deg, var(--burgundy) 0%, var(--burgundy-2) 55%, var(--burgundy-deep) 100%);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  h1,h2{ margin:0; font-family:'Italiana', serif; font-weight:400; }
+  .script{ font-family:'Great Vibes', cursive; font-weight:400; line-height:1; }
+  .note{ font-family:'Cormorant Garamond', serif; font-style: italic; }
+
+  a{ color: inherit; text-decoration:none; }
+  button{ font-family: inherit; background:none; border:none; cursor:pointer; color:inherit; }
+
+  ::selection{ background: var(--cream); color: var(--burgundy-deep); }
+
+  svg{ display:block; }
+
+  /* ---------- SPLASH / SCRAMBLE INTRO ---------- */
+  #splash{
+    position: fixed; inset:0; z-index: 999;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 40%, rgba(255,235,220,0.07), transparent 60%),
+      linear-gradient(180deg, var(--burgundy) 0%, var(--burgundy-deep) 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    transition: opacity 1s ease, visibility 1s ease;
+    cursor: pointer;
+  }
+  #splash.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  #splash .drift{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  #splash .drift span{
+    position:absolute; bottom:-10%;
+    width: 3px; height: 3px;
+    background: rgba(243,234,217,0.3);
+    border-radius: 50%;
+    animation: rise linear infinite;
+  }
+  @keyframes rise{
+    0%{ transform: translateY(0) scale(1); opacity:0; }
+    12%{ opacity:1; }
+    100%{ transform: translateY(-110vh) scale(0.3); opacity:0; }
+  }
+
+  #scramble-label{
+    color: var(--cream-dim);
+    letter-spacing: 0.35em;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.75;
+  }
+
+  #scramble{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.1rem, 7vw, 4rem);
+    color: var(--cream);
+    letter-spacing: 0.02em;
+    min-height: 1.3em;
+  }
+  #scramble .scramble-char{ color: var(--cream-dim); opacity: 0.6; }
+  #scramble .ts-char{ display:inline-block; width: 0.62em; text-align:center; }
+
+  #splash .hint{
+    margin-top: 28px;
+    color: var(--cream-dim);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadein 1s ease forwards 4.6s;
+  }
+  @keyframes fadein{ to{ opacity: 0.6; } }
+
+  /* ---------- AMBIENT BACKGROUND MOTION ---------- */
+  #ambient{ position: fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  #ambient span{
+    position:absolute; bottom:-6%;
+    border-radius:50%;
+    background: rgba(243,234,217,0.2);
+    animation: riseSlow linear infinite;
+  }
+  @keyframes riseSlow{
+    0%{ transform: translateY(0) scale(1); opacity:0; }
+    12%{ opacity:1; }
+    100%{ transform: translateY(-112vh) scale(0.35); opacity:0; }
+  }
+
+  /* ---------- SITE ---------- */
+  #site{ opacity:0; transition: opacity 1.1s ease; position:relative; z-index:1; }
+  #site.show{ opacity:1; }
+
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+  /* hand-drawn squiggle divider */
+  .squiggle{ display:block; margin: 26px auto; opacity: 0.75; color: var(--line); }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.visible{ opacity:1; transform: translateY(0); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    text-align:center;
+    padding: 70px 24px 40px;
+  }
+
+  @keyframes heroIn{ from{ opacity:0; transform: translateY(20px); } to{ opacity:1; transform: translateY(0); } }
+  .hero .seal{ opacity:0; animation: heroIn .9s ease forwards 0.1s; }
+  .hero .eyebrow{ opacity:0; animation: heroIn .9s ease forwards 0.35s; }
+  .hero .name{ opacity:0; animation: heroIn .9s ease forwards 0.55s; }
+  .hero .title{ opacity:0; animation: heroIn .9s ease forwards 0.75s; }
+  .hero .tagline{ opacity:0; animation: heroIn .9s ease forwards 0.95s; }
+  .hero .datebadge{ opacity:0; animation: heroIn .9s ease forwards 1.15s; }
+  .hero .scroll-cue{ opacity:0; animation: heroIn .9s ease forwards 1.8s, bob 2.6s ease-in-out infinite 2.7s; }
+
+  .seal{ width: 104px; height: 104px; position:relative; margin-bottom: 18px; }
+  .seal svg{ width:100%; height:100%; transform-origin: 50% 50%; animation: spinSlow 48s linear infinite; }
+  @keyframes spinSlow{ to{ transform: rotate(360deg); } }
+  .seal span{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Great Vibes', cursive; font-size: 2.5rem; color: var(--cream);
+    transform: translateY(-2px);
+  }
+
+  .eyebrow{
+    letter-spacing: 0.32em; text-transform: uppercase; font-size: 0.68rem;
+    color: var(--cream-dim); margin-bottom: 10px;
+    display:flex; align-items:center; justify-content:center; gap: 10px;
+  }
+
+  /* small hand-drawn sprig used to flank labels and signatures */
+  .sprig{ width: 32px; height: 15px; flex-shrink:0; color: var(--line); opacity: 0.75; }
+  .sprig.right{ transform: scaleX(-1); }
+
+  .hero .name{
+    font-family:'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 9vw, 4.6rem);
+    color: var(--cream);
+    margin-bottom: -4px;
+  }
+
+  .hero .title{
+    font-size: clamp(2.3rem, 7.5vw, 3.8rem);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1.15;
+  }
+  .hero .title em{
+    font-style: normal;
+    font-family:'Great Vibes', cursive;
+    text-transform: none;
+    color: var(--cream);
+    font-size: 1.3em;
+    display:block;
+    margin-top: 2px;
+  }
+
+  .hero .tagline{
+    margin-top: 22px; max-width: 400px;
+    font-size: 1.25rem; color: var(--cream-dim); line-height: 1.6;
+  }
+
+  .hero .datebadge{
+    margin-top: 26px;
+    letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.82rem;
+    color: var(--cream);
+  }
+  .hero .datebadge .ulink{ position:relative; display:inline-block; padding-bottom:6px; }
+  .hero .datebadge svg{ position:absolute; left:-6%; right:-6%; bottom:-6px; width:112%; height:10px; color: var(--line-soft); }
+
+  .seal-parallax, .hero-art-parallax{ transition: transform .2s ease-out; }
+
+  .hero-art-parallax{ width: min(560px, 100%); margin-top: 34px; }
+  .hero-art{
+    width: 100%; display:block; color: var(--line);
+    opacity:0; animation: heroIn .9s ease forwards 1.3s, floatArt 7s ease-in-out infinite 2.2s;
+  }
+  @keyframes floatArt{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
+  .hero-art .steam{ transform-box: fill-box; transform-origin: 50% 100%; animation: steamRise 3.2s ease-in-out infinite; }
+  .hero-art .steam.s2{ animation-delay: .5s; }
+  .hero-art .steam.s3{ animation-delay: 1s; }
+  @keyframes steamRise{
+    0%{ opacity:0.2; transform: translateY(0) scaleY(1); }
+    50%{ opacity:0.85; transform: translateY(-5px) scaleY(1.2); }
+    100%{ opacity:0.2; transform: translateY(0) scaleY(1); }
+  }
+
+  .scroll-cue{
+    margin-top: 30px;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    font-size: 0.68rem; letter-spacing: 0.2em; color: var(--cream-dim);
+    opacity: 0.65;
+    animation: bob 2.6s ease-in-out infinite;
+  }
+  .scroll-cue svg{ width: 16px; height: 22px; }
+  @keyframes bob{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(7px);} }
+
+  /* ---------- SECTIONS ---------- */
+  section.block{ padding: 70px 0; text-align:center; }
+  .section-head{ margin-bottom: 40px; }
+  .section-head h2{ font-size: clamp(1.9rem, 5vw, 2.6rem); letter-spacing: 0.04em; text-transform: uppercase; }
+  .section-head h2 em{ font-style: normal; font-family:'Great Vibes', cursive; text-transform:none; color: var(--cream); font-size: 1.3em; }
+
+  /* ---------- birthday balloons above the countdown ---------- */
+  .balloons{ width: min(230px, 60%); margin: 0 auto 4px; display:block; opacity: 0.92; }
+  .balloon-g{ transform-box: fill-box; transform-origin: 50% 100%; animation: balloonSway 4.6s ease-in-out infinite; }
+  .balloon-g.s2{ animation-duration: 5.3s; animation-delay: .3s; }
+  .balloon-g.s3{ animation-duration: 4.9s; animation-delay: .7s; }
+  @keyframes balloonSway{ 0%,100%{ transform: rotate(-3deg); } 50%{ transform: rotate(3deg); } }
+  .balloons .string{ transform-box: fill-box; transform-origin: 50% 0%; animation: stringSway 4.2s ease-in-out infinite; }
+  .balloons .string.s2{ animation-duration: 4.9s; animation-delay: .3s; }
+  .balloons .string.s3{ animation-duration: 4.5s; animation-delay: .7s; }
+  @keyframes stringSway{ 0%,100%{ transform: rotate(2deg); } 50%{ transform: rotate(-2deg); } }
+
+  /* ---------- COUNTDOWN (hand-drawn rings) ---------- */
+  .countdown{ display:flex; justify-content:center; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .cd-ring{ position:relative; width: 96px; height: 96px; display:flex; align-items:center; justify-content:center; }
+  .cd-ring svg{ position:absolute; inset:0; width:100%; height:100%; color: var(--line); }
+  .cd-ring .inner{ position:relative; display:flex; flex-direction:column; align-items:center; }
+  .cd-ring .num{ font-family:'Italiana', serif; font-size: 1.7rem; display:inline-block; }
+  @keyframes tickPulse{ 0%{ transform: scale(1); } 35%{ transform: scale(1.22); color: var(--cream); } 100%{ transform: scale(1); } }
+  .cd-ring .num.tick{ animation: tickPulse .5s ease; }
+  .cd-ring .lab{ font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); margin-top: 2px; }
+
+  /* ---------- DETAILS (no boxes, airy columns) ---------- */
+  .details-row{
+    display:flex; justify-content:center; gap: 56px; flex-wrap: wrap;
+  }
+  .detail-item{ max-width: 180px; }
+  .detail-item .icon{ color: var(--line); margin-bottom: 14px; }
+  .detail-item .icon svg{ width: 40px; height: 40px; margin: 0 auto; }
+  .detail-item h3{ font-family:'Italiana', serif; font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .detail-item p{ margin: 2px 0; font-size: 0.95rem; color: var(--cream-dim); }
+  .detail-item p.accent{ font-family:'Cormorant Garamond', serif; font-style: italic; color: var(--cream); font-size: 1.05rem; }
+
+  /* ---------- LOCATION ---------- */
+  .map-frame{ position: relative; max-width: 460px; margin: 0 auto; }
+  .map-blob{
+    position: relative; overflow:hidden;
+    clip-path: path('M30,8 C140,-6 330,-4 430,20 C462,40 460,150 452,230 C444,300 330,322 230,318 C120,314 18,296 10,210 C4,140 -2,24 30,8 Z');
+    aspect-ratio: 460 / 330;
+    background: var(--burgundy-2);
+  }
+  .map-blob iframe{ width:100%; height:100%; border:0; display:block; filter: sepia(14%) saturate(70%) brightness(0.92) contrast(1.05); }
+  .map-outline{ position:absolute; inset:0; width:100%; height:100%; color: var(--line); pointer-events:none; }
+
+  .map-caption{ margin-top: 22px; }
+  .map-caption .addr{ font-family:'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--cream); }
+  .map-caption .addr2{ font-size: 0.85rem; color: var(--cream-dim); margin-top: 2px; }
+
+  /* ---------- HAND-DRAWN OVAL BUTTONS ---------- */
+  .sketch-btn{
+    position: relative;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding: 18px 40px;
+    font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cream);
+    transition: transform .3s ease;
+  }
+  .sketch-btn:hover{ transform: translateY(-2px); }
+  .sketch-btn svg{
+    position:absolute; inset:0; width:100%; height:100%;
+    color: var(--line);
+    animation: breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.018); } }
+  .sketch-btn svg path{
+    fill:none; stroke: currentColor; stroke-width: 1.6;
+    stroke-dasharray: 620; stroke-dashoffset: 620;
+    animation: draw 1.4s ease forwards;
+  }
+  .reveal.visible .sketch-btn svg path{ animation: draw 1.4s ease forwards; }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+
+  .squiggle path{ transform-box: fill-box; transform-origin: 50% 50%; animation: waveShift 4.5s ease-in-out infinite; }
+  @keyframes waveShift{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-2.5px); } }
+  .sketch-btn span{ position:relative; }
+
+  .envelope{ width: 100px; margin: 0 auto 22px; display:block; color: var(--line); animation: envelopeBob 4s ease-in-out infinite; }
+  @keyframes envelopeBob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
+  .envelope .heart{ transform-box: fill-box; transform-origin: 50% 50%; opacity: 0.85; animation: heartBeat 2.2s ease-in-out infinite; }
+  @keyframes heartBeat{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.2); } }
+
+  .rsvp-actions{ display:flex; gap: 22px; justify-content:center; flex-wrap:wrap; margin-top: 10px; }
+  .rsvp-note{ margin-top: 26px; font-family:'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--cream-dim); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 50px 24px 60px; text-align:center; }
+  footer .footer-flourish{ display:flex; align-items:center; justify-content:center; gap: 18px; margin-bottom: 10px; }
+  footer .sprig{ width: 50px; height: 22px; opacity: 0.65; }
+  footer .script{ font-size: 2rem; color: var(--cream); margin:0; }
+  footer p{ font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); margin: 0; }
+
+  /* corner sprigs framing the map */
+  .map-sprig{ position:absolute; width: 78px; height: 58px; color: var(--line); opacity: 0.72; }
+  .map-sprig.tl{ top: -26px; left: -10px; transform: rotate(-14deg); }
+  .map-sprig.br{ bottom: -26px; right: -10px; transform: rotate(166deg); }
+
+  @media (max-width: 560px){
+    .details-row{ gap: 36px; }
+    section.block{ padding: 54px 0; }
+    .rsvp-actions{ flex-direction: column; align-items:center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ================= SPLASH / INTRO SCRAMBLE ================= -->
+  <div id="splash">
+    <div class="drift" id="driftLayer"></div>
+    <div id="scramble-label">Se pregătește o invitație</div>
+    <div id="scramble">&nbsp;</div>
+    <div class="hint">apasă oriunde pentru a continua</div>
+  </div>
+
+  <div id="ambient"></div>
+
+  <!-- ================= SITE ================= -->
+  <div id="site">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="seal-parallax">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 120 120" fill="none">
+            <path d="M60,8 C92,6 112,30 113,60 C114,90 91,113 60,112 C30,111 7,89 8,59 C9,30 29,10 60,8 Z" stroke="currentColor" stroke-width="1.4" style="color:var(--line)"/>
+            <path d="M60,18 C85,17 101,36 102,60 C103,84 84,103 60,102 C37,101 18,83 19,59 C20,36 36,19 60,18 Z" stroke="currentColor" stroke-width="1" style="color:var(--line-soft)"/>
+          </svg>
+          <span>A</span>
+        </div>
+      </div>
+
+      <div class="eyebrow">
+        <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+        Invitație
+        <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="name">Andrada</div>
+      <h1 class="title">Împlinește<em>20 de ani</em></h1>
+      <p class="tagline">Brunch, cafea bună și companie bună.</p>
+
+      <div class="datebadge">
+        <span class="ulink">
+          Brunch de ziua mea · 28 Noiembrie
+          <svg viewBox="0 0 200 10" preserveAspectRatio="none"><path d="M2,5 C40,9 90,1 130,5 C155,8 180,2 198,6" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </span>
+      </div>
+
+      <!-- hand-drawn brunch illustration -->
+      <div class="hero-art-parallax">
+      <svg class="hero-art" viewBox="0 0 600 260" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- table edge -->
+        <path d="M20,183 C90,178 150,187 210,181 C280,174 340,189 410,181 C460,175 520,188 580,181"/>
+        <!-- cloth drape -->
+        <path d="M34,184 C30,205 38,222 32,246" opacity="0.7"/>
+        <path d="M66,185 C62,206 70,224 64,248" opacity="0.7"/>
+        <path d="M98,185 C94,207 102,223 96,247" opacity="0.7"/>
+        <path d="M454,183 C450,205 458,222 452,246" opacity="0.7"/>
+        <path d="M488,184 C484,206 492,224 486,248" opacity="0.7"/>
+        <path d="M522,184 C518,206 526,223 520,247" opacity="0.7"/>
+        <path d="M556,183 C552,205 560,222 554,246" opacity="0.7"/>
+
+        <!-- coffee pot, centre -->
+        <path d="M262,100 C256,96 256,86 268,84 C300,78 330,80 352,88 C362,92 362,100 356,104 L352,176 C352,182 346,186 338,186 L278,186 C270,186 264,182 264,176 Z"/>
+        <path d="M268,84 C266,70 278,62 300,62 C322,62 334,70 332,84"/>
+        <ellipse cx="300" cy="62" rx="10" ry="4"/>
+        <path d="M352,112 C378,106 398,112 404,128 C408,140 398,150 378,150"/>
+        <path d="M264,120 C244,122 230,132 226,146 C223,158 232,168 248,168"/>
+
+        <!-- cup + saucer, left -->
+        <ellipse cx="140" cy="182" rx="46" ry="9"/>
+        <path d="M104,176 C102,160 112,148 140,148 C168,148 178,160 176,176 C174,186 158,192 140,192 C122,192 106,186 104,176 Z"/>
+        <path d="M176,158 C192,156 202,164 200,174 C198,182 188,186 176,184"/>
+        <path class="steam s1" d="M122,138 C120,130 126,126 124,118" opacity="0.7"/>
+        <path class="steam s2" d="M140,134 C138,126 144,122 142,114" opacity="0.7"/>
+        <path class="steam s3" d="M158,138 C156,130 162,126 160,118" opacity="0.7"/>
+
+        <!-- croissant, right -->
+        <path d="M430,170 C440,146 468,134 494,142 C512,148 520,164 512,176 C522,172 532,178 530,190 C528,200 514,204 504,198 C496,210 478,214 462,206 C446,198 436,188 430,170 Z"/>
+        <path d="M448,162 C458,166 468,174 472,184" opacity="0.6"/>
+        <path d="M468,150 C478,156 486,164 490,174" opacity="0.6"/>
+
+        <!-- sprig over the pot -->
+        <path d="M250,76 C270,60 330,58 356,74"/>
+        <path d="M268,66 C264,58 270,50 278,52"/>
+        <path d="M284,60 C280,50 288,44 296,47"/>
+        <path d="M304,58 C304,48 314,44 320,49"/>
+        <path d="M324,62 C328,52 338,50 344,56"/>
+        <path d="M340,68 C346,60 356,60 360,68"/>
+        <!-- little bow -->
+        <path d="M250,76 C240,70 234,74 238,82 C230,78 224,84 230,90 C238,94 248,88 250,76 Z"/>
+
+        <!-- coffee beans scattered between pot and croissant -->
+        <path d="M372,180 C376,176 382,176 386,180 C382,184 376,184 372,180 Z"/>
+        <path d="M375,178 C378,180 380,182 383,182" opacity="0.7"/>
+        <path d="M392,185 C396,181 402,181 406,185 C402,189 396,189 392,185 Z"/>
+        <path d="M395,183 C398,185 400,187 403,187" opacity="0.7"/>
+        <path d="M408,177 C412,173 418,173 422,177 C418,181 412,181 408,177 Z"/>
+        <path d="M411,175 C414,177 416,179 419,179" opacity="0.7"/>
+
+        <!-- small vase with flowers, far left -->
+        <path d="M26,158 C24,172 30,182 42,183 C54,182 60,172 58,158 C59,150 25,150 26,158 Z"/>
+        <path d="M36,150 C36,144 36,138 37,132"/>
+        <path d="M48,150 C48,144 48,138 47,132"/>
+        <ellipse cx="42" cy="131" rx="11" ry="3"/>
+        <path d="M34,131 C32,122 30,116 28,110"/>
+        <path d="M26,106 C22,100 30,96 33,102 C35,106 29,110 26,106 Z"/>
+        <path d="M42,131 C42,120 42,112 42,104"/>
+        <path d="M42,100 C37,95 46,90 49,97 C50,101 45,104 42,100 Z"/>
+        <path d="M50,131 C52,122 55,116 58,109"/>
+        <path d="M60,105 C56,99 64,95 67,101 C68,105 63,109 60,105 Z"/>
+        <path d="M36,122 C32,120 30,116 32,112" opacity="0.7"/>
+        <path d="M48,118 C52,116 54,112 52,108" opacity="0.7"/>
+
+        <!-- small jam jar with spoon, far right -->
+        <path d="M532,150 C530,146 534,142 542,141 L562,141 C570,142 574,146 572,150 L569,178 C568,183 562,186 552,186 C542,186 536,183 535,178 Z"/>
+        <ellipse cx="552" cy="141" rx="20" ry="4"/>
+        <path d="M534,148 C545,146 559,146 571,148" opacity="0.6"/>
+        <path d="M539,153 C545,150 549,155 555,152 C561,149 565,153 569,151" opacity="0.6"/>
+        <path d="M568,133 C572,122 578,112 583,101" opacity="0.9"/>
+        <ellipse cx="586" cy="95" rx="6" ry="9" transform="rotate(-25 586 95)"/>
+
+        <!-- small juice glass, between the vase and the cup -->
+        <path d="M76,158 C75,166 74,174 73,181 C73,185 91,185 91,181 C90,174 89,166 88,158 Z"/>
+        <path d="M75,168 C80,166 84,170 89,168" opacity="0.6"/>
+        <path d="M80,150 C82,158 84,166 86,176" opacity="0.8"/>
+      </svg>
+      </div>
+
+      <div class="scroll-cue">
+        <span>derulează</span>
+        <svg viewBox="0 0 20 26" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10,2 C8,10 12,16 10,24 M10,24 C7,21 10,20 5,19 M10,24 C13,21 10,20 15,19"/></svg>
+      </div>
+    </header>
+
+    <!-- COUNTDOWN -->
+    <section class="block countdown-sec">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">
+            <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+            Nu mai e mult
+            <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h2>Numărătoarea <em>inversă</em></h2>
+        </div>
+
+        <svg class="balloons reveal" viewBox="0 0 260 200" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path class="string s1" d="M50,108 C54,120 46,132 50,146 C54,158 46,168 50,180" opacity="0.8"/>
+          <g class="balloon-g s1">
+            <ellipse cx="50" cy="72" rx="24" ry="30"/>
+            <path d="M46,100 L50,108 L54,100 Z"/>
+          </g>
+          <path class="string s2" d="M132,101 C137,115 127,128 132,145 C137,160 127,172 132,188" opacity="0.8"/>
+          <g class="balloon-g s2">
+            <ellipse cx="132" cy="56" rx="30" ry="38"/>
+            <path d="M127,92 L132,101 L137,92 Z"/>
+            <text x="132" y="65" text-anchor="middle" font-family="Italiana, serif" font-size="25" stroke="none" fill="currentColor">20</text>
+          </g>
+          <path class="string s3" d="M212,112 C216,124 208,136 212,150 C216,160 208,170 212,182" opacity="0.8"/>
+          <g class="balloon-g s3">
+            <ellipse cx="212" cy="76" rx="24" ry="30"/>
+            <path d="M208,104 L212,112 L216,104 Z"/>
+          </g>
+        </svg>
+
+        <div class="countdown reveal">
+          <div class="cd-ring">
+            <svg viewBox="0 0 100 100"><path d="M50,5 C76,4 95,24 96,50 C97,76 75,96 50,95 C25,94 4,75 5,50 C6,25 25,6 50,5 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+            <div class="inner"><span class="num" id="cd-days">00</span><span class="lab">Zile</span></div>
+          </div>
+          <div class="cd-ring">
+            <svg viewBox="0 0 100 100"><path d="M50,6 C74,4 94,26 95,50 C96,74 76,95 50,94 C26,93 5,74 6,50 C7,26 27,7 50,6 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+            <div class="inner"><span class="num" id="cd-hours">00</span><span class="lab">Ore</span></div>
+          </div>
+          <div class="cd-ring">
+            <svg viewBox="0 0 100 100"><path d="M50,4 C77,5 96,25 95,50 C94,75 75,96 50,95 C24,96 5,75 6,50 C7,25 24,3 50,4 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+            <div class="inner"><span class="num" id="cd-min">00</span><span class="lab">Minute</span></div>
+          </div>
+          <div class="cd-ring">
+            <svg viewBox="0 0 100 100"><path d="M50,5 C25,4 6,24 5,50 C4,75 25,96 50,95 C76,96 95,76 94,50 C93,25 75,6 50,5 Z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+            <div class="inner"><span class="num" id="cd-sec">00</span><span class="lab">Secunde</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <svg class="squiggle" width="230" height="36" viewBox="0 0 220 34" fill="none" stroke="currentColor" stroke-width="1.3">
+      <path d="M8,17 C50,3 90,31 110,17 C130,3 170,31 212,17"/>
+      <path d="M28,17 C22,7 38,1 44,11 C46,17 36,23 28,17 Z"/>
+      <path d="M100,17 C94,27 110,33 116,23 C118,17 108,11 100,17 Z"/>
+      <path d="M176,17 C170,7 186,1 192,11 C194,17 184,23 176,17 Z"/>
+      <circle cx="8" cy="17" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="212" cy="17" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+
+    <!-- DETAILS -->
+    <section class="block">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">
+            <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+            Detalii
+            <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h2>Când <em>și unde</em></h2>
+        </div>
+        <div class="details-row">
+          <div class="detail-item reveal">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M10,18 C9,17 9,15 12,15 C18,14 26,14 32,15 C35,15 35,17 34,18 L32,34 C31,38 27,40 23,40 L19,40 C15,40 11,38 10,34 Z"/>
+                <path d="M34,20 C40,19 44,22 44,27 C44,32 39,35 33,34"/>
+                <path d="M16,10 C15,8 17,6 16,4" opacity="0.7"/>
+                <path d="M22,9 C21,7 23,5 22,3" opacity="0.7"/>
+              </svg>
+            </div>
+            <h3>Data &amp; ora</h3>
+            <p>Sâmbătă</p>
+            <p class="accent">28 Noiembrie, ora 15:00</p>
+          </div>
+          <div class="detail-item reveal">
+            <div class="icon">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M24,44 C24,44 11,30 11,20 C11,12 17,6 24,6 C31,6 37,12 37,20 C37,30 24,44 24,44 Z"/>
+                <path d="M19,19 C19,16 21,14 24,14 C27,14 29,16 29,19 C29,22 27,24 24,24 C21,24 19,22 19,19 Z"/>
+              </svg>
+            </div>
+            <h3>Locația</h3>
+            <p>Sânnicolau Mare</p>
+            <p class="accent">Str. Bărnuțiu, nr. 2</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <svg class="squiggle" width="230" height="36" viewBox="0 0 220 34" fill="none" stroke="currentColor" stroke-width="1.3">
+      <path d="M8,17 C50,3 90,31 110,17 C130,3 170,31 212,17"/>
+      <path d="M28,17 C22,7 38,1 44,11 C46,17 36,23 28,17 Z"/>
+      <path d="M100,17 C94,27 110,33 116,23 C118,17 108,11 100,17 Z"/>
+      <path d="M176,17 C170,7 186,1 192,11 C194,17 184,23 176,17 Z"/>
+      <circle cx="8" cy="17" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="212" cy="17" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+
+    <!-- LOCATION / MAP -->
+    <section class="block location-sec">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">
+            <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+            Cum ajungi
+            <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h2>Direcții către <em>eveniment</em></h2>
+        </div>
+        <div class="map-frame reveal">
+          <svg class="map-sprig tl" viewBox="0 0 70 50" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6,44 C18,34 28,22 40,8"/><path d="M12,36 C4,28 14,14 26,20 C30,26 22,40 12,36 Z"/><path d="M26,20 C20,10 30,-2 40,4 C44,10 36,24 26,20 Z"/><circle cx="43" cy="5" r="2.3" fill="currentColor" stroke="none"/></svg>
+          <svg class="map-sprig br" viewBox="0 0 70 50" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6,44 C18,34 28,22 40,8"/><path d="M12,36 C4,28 14,14 26,20 C30,26 22,40 12,36 Z"/><path d="M26,20 C20,10 30,-2 40,4 C44,10 36,24 26,20 Z"/><circle cx="43" cy="5" r="2.3" fill="currentColor" stroke="none"/></svg>
+          <div class="map-blob">
+            <iframe
+              id="mapEmbed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Strada+B%C4%83rnu%C8%9Biu+2%2C+S%C3%A2nnicolau+Mare&output=embed">
+            </iframe>
+          </div>
+          <svg class="map-outline" viewBox="0 0 460 330" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M30,8 C140,-6 330,-4 430,20 C462,40 460,150 452,230 C444,300 330,322 230,318 C120,314 18,296 10,210 C4,140 -2,24 30,8 Z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="map-caption reveal">
+          <div class="addr">Str. Bărnuțiu, nr. 2</div>
+          <div class="addr2">Sânnicolau Mare, România</div>
+        </div>
+        <div style="margin-top:28px;" class="reveal">
+          <button class="sketch-btn" id="directionsBtn">
+            <svg viewBox="0 0 220 72" preserveAspectRatio="none"><path d="M18,35 C15,12 55,6 110,7 C168,8 206,14 204,36 C202,58 164,64 110,63 C53,63 21,60 18,35 Z"/></svg>
+            <span>Deschide indicații</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <svg class="squiggle" width="230" height="36" viewBox="0 0 220 34" fill="none" stroke="currentColor" stroke-width="1.3">
+      <path d="M8,17 C50,3 90,31 110,17 C130,3 170,31 212,17"/>
+      <path d="M28,17 C22,7 38,1 44,11 C46,17 36,23 28,17 Z"/>
+      <path d="M100,17 C94,27 110,33 116,23 C118,17 108,11 100,17 Z"/>
+      <path d="M176,17 C170,7 186,1 192,11 C194,17 184,23 176,17 Z"/>
+      <circle cx="8" cy="17" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="212" cy="17" r="2" fill="currentColor" stroke="none"/>
+    </svg>
+
+    <!-- RSVP -->
+    <section class="block rsvp-sec">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="eyebrow">
+            <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+            Ultimul pas
+            <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h2>Vii? <em>Spune-mi</em></h2>
+        </div>
+
+        <svg class="envelope reveal" viewBox="0 0 140 100" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M20,14 C19,12 21,10 24,10 L116,10 C119,10 121,12 120,14 L122,80 C122,84 118,86 114,86 L26,86 C22,86 18,84 18,80 Z"/>
+          <path d="M20,14 C40,30 55,44 70,50 C85,44 100,30 120,14"/>
+          <path class="heart" d="M70,46 C68,42 62,42 61,47 C60,52 65,56 70,60 C75,56 80,52 79,47 C78,42 72,42 70,46 Z" fill="currentColor" stroke="none"/>
+        </svg>
+
+        <p class="reveal note" style="max-width:380px;margin:0 auto;color:var(--cream-dim);font-size:1.15rem;">Confirmă pe WhatsApp și adaugă evenimentul în calendar.</p>
+        <div class="rsvp-actions reveal">
+          <a class="sketch-btn" id="rsvpBtn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 220 72" preserveAspectRatio="none"><path d="M16,32 C20,8 58,3 112,6 C170,9 206,16 202,38 C198,60 158,66 108,64 C54,62 13,56 16,32 Z"/></svg>
+            <span>Confirmă pe WhatsApp</span>
+          </a>
+          <button class="sketch-btn" id="icsBtn">
+            <svg viewBox="0 0 220 72" preserveAspectRatio="none"><path d="M18,35 C15,12 55,6 110,7 C168,8 206,14 204,36 C202,58 164,64 110,63 C53,63 21,60 18,35 Z"/></svg>
+            <span>Adaugă în calendar</span>
+          </button>
+        </div>
+        <p class="rsvp-note reveal">Ne vedem pe 28!</p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-flourish">
+        <svg class="sprig" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+        <div class="script">Cu drag, Andrada</div>
+        <svg class="sprig right" viewBox="0 0 70 26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4,13 C18,5 28,21 42,13 C48,10 53,11 56,13"/><circle cx="60" cy="13" r="2.2" fill="currentColor" stroke="none"/><circle cx="50" cy="9" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <p>20 de ani · 28 Noiembrie 2026 · Sânnicolau Mare</p>
+    </footer>
+
+  </div>
+
+<script>
+(function(){
+
+  /* ---------------- TEXT SCRAMBLE EFFECT ---------------- */
+  class TextScramble{
+    constructor(el){
+      this.el = el;
+      this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzăâîșțĂÂÎȘȚ0123456789!?#%&*';
+      this.update = this.update.bind(this);
+    }
+    setText(newText){
+      const oldText = this.el.textContent === ' ' ? '' : this.el.textContent;
+      const length = Math.max(oldText.length, newText.length);
+      const promise = new Promise((resolve)=> this.resolve = resolve);
+      this.queue = [];
+      for(let i=0; i<length; i++){
+        const from = oldText[i] || '';
+        const to = newText[i] || '';
+        // letters start scrambling in order, left to right, with a slow hold
+        // before each one locks in — gives time to read as it resolves
+        const start = i * 17 + Math.floor(Math.random()*8);
+        const end = start + 46 + Math.floor(Math.random()*26);
+        this.queue.push({from, to, start, end, char:null});
+      }
+      cancelAnimationFrame(this.frameRequest);
+      this.frame = 0;
+      this.update();
+      return promise;
+    }
+    update(){
+      let output = '';
+      let complete = 0;
+      for(let i=0, n=this.queue.length; i<n; i++){
+        let {from, to, start, end, char} = this.queue[i];
+        if(this.frame >= end){
+          complete++;
+          output += `<span class="ts-char">${to === ' ' ? '&nbsp;' : to}</span>`;
+        } else if(this.frame >= start){
+          if(!char || Math.random() < 0.14){
+            char = this.randomChar();
+            this.queue[i].char = char;
+          }
+          output += `<span class="ts-char scramble-char">${char}</span>`;
+        } else {
+          output += `<span class="ts-char">${from === ' ' ? '&nbsp;' : from}</span>`;
+        }
+      }
+      this.el.innerHTML = output;
+      if(complete === this.queue.length){
+        this.resolve();
+      } else {
+        this.frameRequest = requestAnimationFrame(this.update);
+        this.frame++;
+      }
+    }
+    randomChar(){
+      return this.chars[Math.floor(Math.random()*this.chars.length)];
+    }
+  }
+
+  const splash = document.getElementById('splash');
+  const site = document.getElementById('site');
+  const scrambleEl = document.getElementById('scramble');
+  const fx = new TextScramble(scrambleEl);
+
+  let entered = false;
+  function enterSite(){
+    if(entered) return;
+    entered = true;
+    splash.classList.add('hide');
+    site.classList.add('show');
+    document.body.style.overflow = 'auto';
+    setTimeout(()=> splash.remove(), 1100);
+  }
+
+  document.body.style.overflow = 'hidden';
+  fx.setText('Zi de naștere').then(()=>{
+    setTimeout(enterSite, 2200);
+  });
+
+  splash.addEventListener('click', enterSite);
+
+  const driftLayer = document.getElementById('driftLayer');
+  for(let i=0;i<20;i++){
+    const s = document.createElement('span');
+    s.style.left = Math.random()*100 + '%';
+    s.style.width = s.style.height = (2 + Math.random()*3) + 'px';
+    s.style.animationDuration = (7 + Math.random()*8) + 's';
+    s.style.animationDelay = (Math.random()*8) + 's';
+    driftLayer.appendChild(s);
+  }
+
+  // soft floating particles drifting behind the whole page, not just the intro
+  const ambient = document.getElementById('ambient');
+  for(let i=0;i<16;i++){
+    const s = document.createElement('span');
+    const size = (2 + Math.random()*3);
+    s.style.left = Math.random()*100 + '%';
+    s.style.width = s.style.height = size + 'px';
+    s.style.animationDuration = (14 + Math.random()*14) + 's';
+    s.style.animationDelay = (Math.random()*18) + 's';
+    ambient.appendChild(s);
+  }
+
+  /* ---------------- COUNTDOWN ---------------- */
+  const EVENT_DATE = new Date('2026-11-28T15:00:00+02:00').getTime();
+  const elDays = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMin = document.getElementById('cd-min');
+  const elSec = document.getElementById('cd-sec');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function setWithPulse(el, value){
+    if(el.textContent === value) return;
+    el.textContent = value;
+    el.classList.remove('tick');
+    void el.offsetWidth; // restart the animation
+    el.classList.add('tick');
+  }
+
+  function tickCountdown(){
+    let diff = EVENT_DATE - Date.now();
+    if(diff < 0) diff = 0;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff / 3600000) % 24);
+    const m = Math.floor((diff / 60000) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    setWithPulse(elDays, pad(d));
+    setWithPulse(elHours, pad(h));
+    setWithPulse(elMin, pad(m));
+    setWithPulse(elSec, pad(s));
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  /* ---------------- SCROLL REVEAL ---------------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=> io.observe(el));
+
+  /* ---------------- HERO PARALLAX (scroll + mouse) ---------------- */
+  const heroEl = document.querySelector('.hero');
+  const sealParallax = document.querySelector('.seal-parallax');
+  const artParallax = document.querySelector('.hero-art-parallax');
+  let scrollOffset = 0, mouseX = 0, mouseY = 0;
+
+  function applyParallax(){
+    if(artParallax) artParallax.style.transform = `translate(${mouseX*14}px, ${mouseY*8 + scrollOffset}px)`;
+    if(sealParallax) sealParallax.style.transform = `translate(${mouseX*8}px, ${mouseY*5}px)`;
+  }
+
+  window.addEventListener('scroll', ()=>{
+    scrollOffset = Math.min(window.scrollY * 0.1, 36);
+    requestAnimationFrame(applyParallax);
+  }, { passive:true });
+
+  if(heroEl){
+    heroEl.addEventListener('mousemove', (e)=>{
+      const r = heroEl.getBoundingClientRect();
+      mouseX = (e.clientX - r.left) / r.width - 0.5;
+      mouseY = (e.clientY - r.top) / r.height - 0.5;
+      requestAnimationFrame(applyParallax);
+    });
+    heroEl.addEventListener('mouseleave', ()=>{
+      mouseX = 0; mouseY = 0;
+      requestAnimationFrame(applyParallax);
+    });
+  }
+
+  /* ---------------- REDRAW BUTTON OUTLINE ON HOVER ---------------- */
+  document.querySelectorAll('.sketch-btn').forEach(btn=>{
+    const path = btn.querySelector('svg path');
+    if(!path) return;
+    btn.addEventListener('mouseenter', ()=>{
+      path.style.animation = 'none';
+      void path.offsetWidth;
+      path.style.animation = '';
+    });
+  });
+
+  /* ---------------- LOCATION / DIRECTIONS ---------------- */
+  const ADDRESS = 'Strada Bărnuțiu 2, Sânnicolau Mare, România';
+  document.getElementById('directionsBtn').addEventListener('click', ()=>{
+    const url = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(ADDRESS);
+    window.open(url, '_blank', 'noopener');
+  });
+
+  /* ---------------- RSVP — WHATSAPP ---------------- */
+  // Fără număr de telefon: se deschide WhatsApp cu mesajul gata scris,
+  // iar fiecare prieten alege singur din contactele lui cui îl trimite.
+  const waMessage = encodeURIComponent('Salut! Vin la brunch-ul tău de 20 de ani, pe 28 noiembrie.');
+  document.getElementById('rsvpBtn').href = `https://wa.me/?text=${waMessage}`;
+
+  /* ---------------- ADD TO CALENDAR (.ics) ---------------- */
+  function formatICSDate(d){
+    return d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+  }
+  document.getElementById('icsBtn').addEventListener('click', ()=>{
+    const start = new Date('2026-11-28T15:00:00+02:00');
+    const end = new Date('2026-11-28T18:00:00+02:00');
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Andrada//Brunch 20 ani//RO',
+      'BEGIN:VEVENT',
+      'UID:' + Date.now() + '@andrada-brunch',
+      'DTSTAMP:' + formatICSDate(new Date()),
+      'DTSTART:' + formatICSDate(start),
+      'DTEND:' + formatICSDate(end),
+      'SUMMARY:Brunch de 20 de ani – Andrada',
+      'LOCATION:Strada Bărnuțiu 2\\, Sânnicolau Mare',
+      'DESCRIPTION:Brunch de 20 de ani.',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    const blob = new Blob([ics], { type: 'text/calendar' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'brunch-andrada-20-ani.ics';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  });
+
+})();
+</script>
+</body>
+</html>
