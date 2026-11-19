@@ -293,7 +293,7 @@
   .map-frame{ position: relative; max-width: 460px; margin: 0 auto; }
   .map-blob{
     position: relative; overflow:hidden;
-    clip-path: path('M30,8 C140,-6 330,-4 430,20 C462,40 460,150 452,230 C444,300 330,322 230,318 C120,314 18,296 10,210 C4,140 -2,24 30,8 Z');
+    clip-path: url(#mapClip);
     aspect-ratio: 460 / 330;
     background: var(--burgundy-2);
   }
@@ -368,10 +368,12 @@
     fill: var(--burgundy-2); stroke: var(--line); stroke-width: 1.6;
   }
   .who-badge span{
-    position:relative; font-family:'Italiana', serif; font-size: 0.82rem;
+    position:relative; font-family:'Italiana', serif; font-size: 1.05rem;
     letter-spacing: 0.03em; line-height: 1.2; padding: 6px 14px;
   }
   .who-badge.bump{ animation: whoBump .45s ease; }
+  .who-badge.dim{ opacity: 0.16; pointer-events: none; transform: translate(10px, 10px) rotate(-6deg) scale(0.78); }
+  .who-badge.asked span{ font-size: 0.82rem; }
   @keyframes whoBump{
     0%{ transform: translate(0,0) rotate(-6deg) scale(1); }
     35%{ transform: translate(0,0) rotate(6deg) scale(1.15); }
@@ -379,8 +381,9 @@
     100%{ transform: translate(0,0) rotate(-6deg) scale(1); }
   }
   @media (max-width: 480px){
-    .who-badge{ width: 88px; height: 58px; bottom: 16px; right: 12px; }
-    .who-badge span{ font-size: 0.72rem; }
+    .who-badge{ width: 102px; height: 66px; bottom: 16px; right: 12px; }
+    .who-badge span{ font-size: 1rem; }
+    .who-badge.asked span{ font-size: 0.8rem; }
   }
 
   /* ---------- big flash + confetti on "Când?" click ---------- */
@@ -699,6 +702,13 @@
         <div class="map-frame reveal">
           <svg class="map-sprig tl" viewBox="0 0 70 50" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6,44 C18,34 28,22 40,8"/><path d="M12,36 C4,28 14,14 26,20 C30,26 22,40 12,36 Z"/><path d="M26,20 C20,10 30,-2 40,4 C44,10 36,24 26,20 Z"/><circle cx="43" cy="5" r="2.3" fill="currentColor" stroke="none"/></svg>
           <svg class="map-sprig br" viewBox="0 0 70 50" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6,44 C18,34 28,22 40,8"/><path d="M12,36 C4,28 14,14 26,20 C30,26 22,40 12,36 Z"/><path d="M26,20 C20,10 30,-2 40,4 C44,10 36,24 26,20 Z"/><circle cx="43" cy="5" r="2.3" fill="currentColor" stroke="none"/></svg>
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <defs>
+              <clipPath id="mapClip" clipPathUnits="objectBoundingBox">
+                <path d="M0.0652,0.0242 C0.3043,-0.0182 0.7174,-0.0121 0.9348,0.0606 C1.0043,0.1212 1.0,0.4545 0.9826,0.697 C0.9652,0.9091 0.7174,0.9758 0.5,0.9636 C0.2609,0.9515 0.0391,0.897 0.0217,0.6364 C0.0087,0.4242 -0.0043,0.0727 0.0652,0.0242 Z"/>
+              </clipPath>
+            </defs>
+          </svg>
           <div class="map-blob">
             <iframe
               id="mapEmbed"
@@ -990,6 +1000,26 @@
   }
   window.addEventListener('scroll', maybeShowWho, { passive:true });
 
+  /* steps aside when it would cover a button, so it never blocks the text */
+  const whoAvoidTargets = Array.from(document.querySelectorAll('.sketch-btn'));
+  function rectsOverlap(a, b){
+    return !(b.left > a.right || b.right < a.left || b.top > a.bottom || b.bottom < a.top);
+  }
+  let whoDimmed = false;
+  function avoidWhoCollision(){
+    if(!whoShown) return;
+    const badgeRect = whoBadge.getBoundingClientRect();
+    const overlapping = whoAvoidTargets.some(btn => rectsOverlap(badgeRect, btn.getBoundingClientRect()));
+    if(overlapping && !whoDimmed){
+      whoBadge.classList.add('dim');
+      whoDimmed = true;
+    } else if(!overlapping && whoDimmed){
+      whoBadge.classList.remove('dim');
+      whoDimmed = false;
+    }
+  }
+  window.addEventListener('scroll', ()=> requestAnimationFrame(avoidWhoCollision), { passive:true });
+
   let whoToggled = false;
   const whoBig = document.getElementById('whoBig');
   const confettiColors = ['var(--cream)', 'var(--cream-dim)', 'var(--green)', 'var(--burgundy-deep)'];
@@ -1044,6 +1074,7 @@
   whoBadge.addEventListener('click', ()=>{
     whoToggled = !whoToggled;
     whoBadgeText.textContent = whoToggled ? 'Când te-am întrebat?' : 'Când?';
+    whoBadge.classList.toggle('asked', whoToggled);
     whoBadge.classList.remove('bump');
     void whoBadge.offsetWidth;
     whoBadge.classList.add('bump');
