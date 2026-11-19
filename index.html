@@ -383,6 +383,57 @@
     .who-badge span{ font-size: 0.72rem; }
   }
 
+  /* ---------- big flash + confetti on "Când?" click ---------- */
+  .who-big{
+    position: fixed; inset: 0; z-index: 90;
+    display:flex; align-items:center; justify-content:center;
+    padding: 24px; text-align:center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .who-big.show{ opacity: 1; }
+  .who-big-panel{
+    background: rgba(58, 9, 18, 0.92);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border: 1.4px solid var(--line-soft);
+    border-radius: 34px;
+    padding: 30px 36px;
+    max-width: 88vw;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+    transform: scale(0.8) rotate(-2deg);
+    transition: transform .45s cubic-bezier(.34,1.56,.64,1);
+  }
+  .who-big.show .who-big-panel{ transform: scale(1) rotate(-2deg); }
+  .who-big span{
+    font-family:'Italiana', serif;
+    font-size: clamp(1.7rem, 7.5vw, 3rem);
+    color: var(--cream);
+    text-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display:block;
+  }
+
+  .confetti-piece{
+    position: fixed; top: -20px; z-index: 89;
+    width: 8px; height: 13px; border-radius: 2px;
+    opacity: 0.95; pointer-events: none;
+  }
+  @keyframes confettiFall{
+    0%{ transform: translateY(0) rotate(0deg); opacity: 1; }
+    100%{ transform: translateY(112vh) rotate(var(--rot)); opacity: 0; }
+  }
+
+  .flying-balloon{
+    position: fixed; bottom: -70px; z-index: 89; pointer-events: none;
+    animation-name: balloonFly; animation-timing-function: ease-out; animation-fill-mode: forwards;
+  }
+  @keyframes balloonFly{
+    0%{ transform: translate(0,0) rotate(-4deg); opacity: 0.95; }
+    65%{ opacity: 0.9; }
+    100%{ transform: translate(var(--driftX,10px), -130vh) rotate(5deg); opacity: 0; }
+  }
+
   /* corner sprigs framing the map */
   .map-sprig{ position:absolute; width: 78px; height: 58px; color: var(--line); opacity: 0.72; }
   .map-sprig.tl{ top: -26px; left: -10px; transform: rotate(-14deg); }
@@ -729,6 +780,12 @@
       <span id="whoBadgeText">Când?</span>
     </div>
 
+    <div id="whoBig" class="who-big" aria-hidden="true">
+      <div class="who-big-panel">
+        <span>Când te-am întrebat?</span>
+      </div>
+    </div>
+
   </div>
 
 <script>
@@ -934,12 +991,63 @@
   window.addEventListener('scroll', maybeShowWho, { passive:true });
 
   let whoToggled = false;
+  const whoBig = document.getElementById('whoBig');
+  const confettiColors = ['var(--cream)', 'var(--cream-dim)', 'var(--green)', 'var(--burgundy-deep)'];
+  function burstConfetti(){
+    const count = 44;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      const dur = (1.5 + Math.random()*1.1).toFixed(2);
+      const delay = (Math.random()*0.35).toFixed(2);
+      el.style.left = (Math.random()*100) + 'vw';
+      el.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
+      el.style.setProperty('--rot', (Math.random()*520 - 260) + 'deg');
+      el.style.transform = `rotate(${Math.random()*360}deg)`;
+      el.style.animation = `confettiFall ${dur}s cubic-bezier(.4,.1,.6,1) ${delay}s forwards`;
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(), (parseFloat(dur) + parseFloat(delay)) * 1000 + 150);
+    }
+  }
+  const balloonColors = ['var(--cream)', 'var(--cream-dim)', 'var(--green)'];
+  function spawnBalloons(){
+    const count = 7;
+    for(let i=0;i<count;i++){
+      const dur = (2.6 + Math.random()*1.1).toFixed(2);
+      const delay = (Math.random()*0.4).toFixed(2);
+      const drift = Math.round(Math.random()*60 - 30) + 'px';
+      const scale = (0.6 + Math.random()*0.5).toFixed(2);
+      const color = balloonColors[Math.floor(Math.random()*balloonColors.length)];
+      const wrap = document.createElement('div');
+      wrap.className = 'flying-balloon';
+      wrap.style.left = (8 + Math.random()*84) + 'vw';
+      wrap.style.setProperty('--driftX', drift);
+      wrap.style.animationDuration = dur + 's';
+      wrap.style.animationDelay = delay + 's';
+      wrap.style.transform = `scale(${scale})`;
+      wrap.innerHTML = `<svg viewBox="0 0 40 60" width="30" height="46" aria-hidden="true">
+        <path d="M20,52 C21,56 19,58 20,60" stroke="var(--line-soft)" stroke-width="1" fill="none"/>
+        <path d="M13,44 L20,52 L27,44 Z" fill="${color}" stroke="var(--line)" stroke-width="1"/>
+        <ellipse cx="20" cy="22" rx="16" ry="20" fill="${color}" stroke="var(--line)" stroke-width="1.4"/>
+      </svg>`;
+      document.body.appendChild(wrap);
+      setTimeout(()=> wrap.remove(), (parseFloat(dur) + parseFloat(delay)) * 1000 + 150);
+    }
+  }
+  function flashWhoBig(){
+    whoBig.classList.add('show');
+    burstConfetti();
+    spawnBalloons();
+    clearTimeout(whoBig._hideTimer);
+    whoBig._hideTimer = setTimeout(()=> whoBig.classList.remove('show'), 2000);
+  }
   whoBadge.addEventListener('click', ()=>{
     whoToggled = !whoToggled;
     whoBadgeText.textContent = whoToggled ? 'Când te-am întrebat?' : 'Când?';
     whoBadge.classList.remove('bump');
     void whoBadge.offsetWidth;
     whoBadge.classList.add('bump');
+    if(whoToggled){ flashWhoBig(); }
   });
 
   /* ---------------- LOCATION / DIRECTIONS ---------------- */
